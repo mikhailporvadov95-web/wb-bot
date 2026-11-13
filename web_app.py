@@ -128,8 +128,8 @@ HTML_TEMPLATE = """
                 <label for="file">Загрузить файл:</label>
                 <div class="file-upload" id="fileUpload" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
                     <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 3 12 7 7 3"/></svg>
-                    <span class="upload-text">Перетащите .xlsx или .csv</span>
-                    <span class="upload-hint">или кликните для выбора файла</span>
+                    <span class="upload-text" id="uploadText">Перетащите .xlsx или .csv</span>
+                    <span class="upload-hint" id="uploadHint">или кликните для выбора файла</span>
                 </div>
                 <input type="file" id="fileInput" accept=".xlsx,.csv" style="display:none"/>
                 <button type="button" class="btn" onclick="generateFile()" style="margin-top: 1rem;">
@@ -174,6 +174,13 @@ HTML_TEMPLATE = """
         function handleDragLeave(e) {
             document.getElementById('fileUpload').classList.remove('drag-over');
         }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Файл не выбран';
+            document.getElementById('uploadText').textContent = fileName;
+            document.getElementById('uploadHint').textContent = 'Файл выбран. Нажмите "Обработать файл"';
+        });
+
         async function generateSingle() {
             const product = document.getElementById('product').value.trim();
             if (!product) { alert('Введите название товара'); return; }
