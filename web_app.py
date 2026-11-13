@@ -193,8 +193,8 @@ HTML_TEMPLATE = """
                     showElement('result', true);
                     document.getElementById('result').textContent = data.description;
                     document.getElementById('downloads').innerHTML =
-                        <a href="/download_file?file=" class="download-btn">📄 Скачать PDF</a> +
-                        <a href="/download_file?file=" class="download-btn">📊 Скачать Excel</a>;
+                        `<a href="/download_file?file=${encodeURIComponent(data.pdf_file)}" class="download-btn">📄 Скачать PDF</a>` +
+                        `<a href="/download_file?file=${encodeURIComponent(data.xlsx_file)}" class="download-btn">📊 Скачать Excel</a>`;
                 }
             } catch (e) {
                 showElement('progress', false); showElement('error', true);
@@ -220,8 +220,8 @@ HTML_TEMPLATE = """
                     showElement('result', true);
                     document.getElementById('result').textContent = data.message;
                     document.getElementById('downloads').innerHTML =
-                        <a href="/download_file?file=" class="download-btn">📊 Скачать Excel</a> +
-                        <a href="/download_file?file=" class="download-btn">📄 Скачать PDF</a>;
+                        `<a href="/download_file?file=${encodeURIComponent(data.xlsx_file)}" class="download-btn">📊 Скачать Excel</a>` +
+                        `<a href="/download_file?file=${encodeURIComponent(data.pdf_file)}" class="download-btn">📄 Скачать PDF</a>`;
                 }
             } catch (e) {
                 showElement('progress', false); showElement('error', true);
