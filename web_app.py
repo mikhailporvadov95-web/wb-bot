@@ -37,51 +37,36 @@ HTML_TEMPLATE = """
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding: 1.5rem;
         }
-        /* Шапка */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid var(--border);
-            background: #12141a;
-        }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .logo { font-size: 20px; font-weight: 700; }
-        .tabs { display: flex; gap: 1rem; }
-        .tab { padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; color: var(--text-gray); }
-        .tab.active { background: #2e303a; color: var(--text-white); }
-        .profile { display: flex; align-items: center; gap: 0.5rem; }
-        .avatar { width: 32px; height: 32px; border-radius: 50%; background: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-
-        /* Основной контент */
         .main {
-            flex: 1;
-            max-width: 1400px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
             width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .page-title { font-size: 32px; font-weight: 700; margin-bottom: 0.5rem; }
-        .page-subtitle { font-size: 14px; color: var(--text-gray); margin-bottom: 2rem; }
+        .logo { font-size: 24px; font-weight: 700; margin-bottom: 1rem; text-align: center; }
+        .page-title { font-size: 24px; font-weight: 700; margin-bottom: 0.5rem; text-align: center; }
+        .page-subtitle { font-size: 14px; color: var(--text-gray); margin-bottom: 2rem; text-align: center; }
 
-        .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        .card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); }
+        .card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); width: 100%; }
 
-        .form-group { margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.2rem; }
         label { display: block; font-size: 14px; color: var(--text-gray); margin-bottom: 0.5rem; }
         textarea.input-field {
-            width: 100%; padding: 1rem; background: #1e2029; 
-            border: 1px solid var(--border); border-radius: 12px; 
+            width: 100%; padding: 0.8rem; background: #1e2029; 
+            border: 1px solid var(--border); border-radius: 10px; 
             font-family: inherit; font-size: 14px; color: var(--text-white); 
-            min-height: 120px; resize: vertical; transition: border-color 0.2s;
+            min-height: 80px; resize: none; transition: border-color 0.2s;
         }
         textarea.input-field:focus { outline: none; border-color: #7c3aed; }
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem; 
-            padding: 0.875rem 1.5rem; background: var(--primary-gradient); color: white; 
-            border: none; border-radius: 12px; font-family: inherit; font-size: 14px; 
+            padding: 0.75rem 1.2rem; background: var(--primary-gradient); color: white; 
+            border: none; border-radius: 10px; font-family: inherit; font-size: 14px; 
             font-weight: 500; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; 
             margin-top: 0.5rem; width: 100%; justify-content: center;
         }
@@ -89,142 +74,54 @@ HTML_TEMPLATE = """
         .btn:active { transform: translateY(0); }
 
         .file-upload {
-            border: 2px dashed var(--border); border-radius: 12px; padding: 2rem; 
+            border: 2px dashed var(--border); border-radius: 10px; padding: 1.2rem; 
             text-align: center; transition: border-color 0.2s, background 0.2s; cursor: pointer;
         }
         .file-upload:hover { border-color: #7c3aed; }
         .file-upload.drag-over { border-color: #7c3aed; background: rgba(124,58,237,0.05); }
-        .upload-icon { width: 32px; height: 32px; margin: 0 auto 0.75rem; stroke: var(--text-gray); }
-        .upload-text { color: var(--text-white); font-size: 14px; margin-top: 0.25rem; display: block; font-weight: 500; }
-        .upload-hint { font-size: 12px; color: #6b7280; margin-top: 0.5rem; display: block; }
-        .choose-btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            margin-top: 1rem; padding: 0.5rem 1rem; background: #2e303a;
-            color: var(--text-white); border: 1px solid var(--border); border-radius: 8px;
-            font-size: 13px; cursor: pointer;
-        }
-        .choose-btn:hover { background: #3e4050; }
+        .upload-icon { width: 28px; height: 28px; margin: 0 auto 0.5rem; stroke: var(--text-gray); }
+        .upload-text { color: var(--text-white); font-size: 14px; display: block; font-weight: 500; }
+        .upload-hint { font-size: 12px; color: #6b7280; margin-top: 0.3rem; display: block; }
 
-        .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .preview-title { font-size: 14px; color: var(--text-gray); display: flex; align-items: center; gap: 0.5rem; }
-        .ready-badge { font-size: 11px; background: #2e303a; color: var(--text-gray); padding: 0.25rem 0.5rem; border-radius: 4px; }
-
-        .preview-card { background: #1e2029; border-radius: 12px; padding: 1.5rem; height: 100%; }
-        .preview-stripes {
-            height: 20px; background: repeating-linear-gradient(45deg,#2e303a,#2e303a 4px,#23252d 4px,#23252d 8px); 
-            border-radius: 4px; margin-bottom: 1rem;
-        }
-        .preview-image {
-            width: 60px; height: 60px; background: #2e303a; border-radius: 6px; 
-            margin: 1rem 0; display: flex; align-items: center; justify-content: center; 
-            color: #6b7280;
-        }
-        .preview-line { height: 8px; background: #2e303a; border-radius: 4px; margin: 0.75rem 0; }
-        .preview-line.short { width: 60%; }
-        .rating { display: flex; gap: 2px; margin-top: 1rem; }
-        .rating-star { width: 12px; height: 12px; background: #fbbf24; border-radius: 2px; }
-        .rating-star.empty { background: #2e303a; }
-        .copy-btn-small {
-            background: #2e303a; color: var(--text-white); border: none; padding: 0.5rem 1rem; 
-            border-radius: 4px; font-size: 12px; margin-top: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
-        }
-        .copy-btn-small:hover { background: #3e4050; }
-
-        #progress { display: none; margin: 1rem 0; color: var(--text-gray); }
-        #error { display: none; color: #f87171; margin: 1rem 0; }
-        #result { display: none; margin: 1rem 0; white-space: pre-wrap; font-size: 14px; }
-        #downloads { margin-top: 1rem; }
+        #progress { display: none; margin: 1rem 0; color: var(--text-gray); text-align: center; }
+        #error { display: none; color: #f87171; margin: 1rem 0; text-align: center; }
+        #result { display: none; margin: 1rem 0; white-space: pre-wrap; font-size: 13px; background: #1e2029; padding: 1rem; border-radius: 8px; }
+        #downloads { margin-top: 1rem; text-align: center; }
         .download-btn { 
-            display: inline-block; margin-right: 1rem; margin-top: 0.5rem; padding: 0.5rem 1rem; 
+            display: inline-block; margin: 0.5rem; padding: 0.6rem 1rem; 
             background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-size: 14px;
         }
         .download-btn:hover { background: #059669; }
-        @media (max-width: 768px) {
-            .layout { grid-template-columns: 1fr; }
-            .header { flex-direction: column; gap: 1rem; }
-        }
     </style>
 </head>
 <body>
-    <!-- Шапка -->
-    <div class="header">
-        <div class="header-left">
-            <div class="logo">CardGen AI</div>
-        </div>
-        <div class="tabs">
-            <div class="tab active">Один товар</div>
-            <div class="tab">Пакетная обработка</div>
-        </div>
-        <div class="profile">
-            <div class="avatar">А</div>
-            <div>Алексей</div>
-        </div>
-    </div>
-
-    <!-- Основной контент -->
     <div class="main">
-        <h1 class="page-title">Генератор описаний для WB и Ozon.</h1>
-        <p class="page-subtitle">Создавайте продающие описания товаров для Wildberries и Ozon за секунды с помощью AI.</p>
+        <div class="logo">CardGen AI</div>
+        <h1 class="page-title">Генератор описаний для WB и Ozon</h1>
+        <p class="page-subtitle">Создавайте продающие описания товаров за секунды с помощью AI.</p>
 
-        <div class="layout">
-            <!-- Левая колонка -->
-            <div class="card">
-                <div class="form-group">
-                    <label for="product">Название товара ✨</label>
-                    <textarea id="product" class="input-field" placeholder="Введите название товара, для которого нужно сгенерировать описание..."></textarea>
-                    <button type="button" class="btn" onclick="generateSingle()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Сгенерировать описание
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <label>Загрузить файл:</label>
-                    <div class="file-upload" id="fileUpload" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
-                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 12h8M12 8v8"/></svg>
-                        <span class="upload-text" id="uploadText">Перетащите .xlsx / .csv</span>
-                        <span class="upload-hint" id="uploadHint">или выберите файл с товарами</span>
-                        <div class="choose-btn">📁 Выбрать файл</div>
-                    </div>
-                    <input type="file" id="fileInput" accept=".xlsx,.csv" style="display:none"/>
-                    <button type="button" class="btn" onclick="generateFile()" style="margin-top: 1rem;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Обработать файл
-                    </button>
-                </div>
-
-                <div id="progress" class="progress">Обработка...</div>
-                <div id="error" class="error"></div>
-                <div id="result" class="description"></div>
-                <div id="downloads"></div>
+        <div class="card">
+            <div class="form-group">
+                <label for="product">Название товара</label>
+                <textarea id="product" class="input-field" placeholder="Введите название товара..."></textarea>
+                <button type="button" class="btn" onclick="generateSingle()">Сгенерировать описание</button>
             </div>
 
-            <!-- Правая колонка (предпросмотр) -->
-            <div class="card">
-                <div class="preview-header">
-                    <div class="preview-title">👁 Предпросмотр карточки</div>
-                    <div class="ready-badge">Готово к копированию</div>
+            <div class="form-group">
+                <label>Или загрузите файл (.xlsx / .csv):</label>
+                <div class="file-upload" id="fileUpload" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 12h8M12 8v8"/></svg>
+                    <span class="upload-text" id="uploadText">Перетащите .xlsx / .csv</span>
+                    <span class="upload-hint" id="uploadHint">или кликните для выбора файла</span>
                 </div>
-                <div class="preview-card" id="previewCard">
-                    <div class="preview-stripes"></div>
-                    <div class="preview-line short"></div>
-                    <div class="preview-line"></div>
-                    <div class="preview-image">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    </div>
-                    <div class="preview-line"></div>
-                    <div class="preview-line short"></div>
-                    <div class="rating">
-                        <div class="rating-star"></div>
-                        <div class="rating-star"></div>
-                        <div class="rating-star"></div>
-                        <div class="rating-star"></div>
-                        <div class="rating-star"></div>
-                        <div class="rating-star empty"></div>
-                    </div>
-                    <button class="copy-btn-small" onclick="copyPreview()">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать
-                    </button>
-                </div>
+                <input type="file" id="fileInput" accept=".xlsx,.csv" style="display:none"/>
+                <button type="button" class="btn" onclick="generateFile()" style="margin-top: 1rem;">Обработать файл</button>
             </div>
+
+            <div id="progress" class="progress">Обработка...</div>
+            <div id="error" class="error"></div>
+            <div id="result" class="description"></div>
+            <div id="downloads"></div>
         </div>
     </div>
 
@@ -298,10 +195,6 @@ HTML_TEMPLATE = """
                 showElement('progress', false); showElement('error', true);
                 document.getElementById('error').textContent = '❌ Ошибка сети: ' + e.message;
             }
-        }
-        function copyPreview() {
-            const preview = document.getElementById('previewCard').innerText;
-            navigator.clipboard.writeText(preview).then(() => { alert('Текст скопирован!'); });
         }
     </script>
 </body>
